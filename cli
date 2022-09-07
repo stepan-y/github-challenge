@@ -1,2 +1,29 @@
 <?php
+
+declare(strict_types=1);
+
 require __DIR__.'/vendor/autoload.php';
+require __DIR__ . '/bootstrap.php';
+
+use App\Commands\Commands;
+
+$params = getopt('', ["action:","name:"]);
+
+if (!$params) {
+    die('Parameters are required');
+}
+if (empty($params['action'])) {
+    die('You have to pass an action, like --action=someAction');
+}
+if (empty($params['name'])) {
+    die('You have to pass a name for the repo, like --name=someName');
+}
+
+$action = $params['action'];
+$name = $params['name'];
+
+try {
+    $response = Commands::$action($name);
+} catch (Exception $exception) {
+    die("Something went wrong..");
+}
