@@ -1,0 +1,23 @@
+{
+  "name": "stepan/github-api",
+  "description": "PHP/GitHub Api Challenge",
+  "scripts": {
+    "create-repo": "@php bin/cli.php --action=create_repo",
+    "delete-repo": "@php bin/cli.php --action=delete_repo"
+  },
+  "require": {
+    "php": "^8.1",
+    "vlucas/phpdotenv": "^5.4",
+    "ext-curl": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/",
+      "App\\Commands\\": "app/commands",
+      "App\\Enums\\": "app/enums",
+      "App\\Http\\": "app/http",
+      "App\\Routers\\": "app/routers",
+      "App\\Controllers\\": "app/controllers"
+    }
+  }
+}
