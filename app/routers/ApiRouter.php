@@ -16,7 +16,9 @@ class ApiRouter
     {
         $this->uri = $_SERVER['REQUEST_URI'];
 
-        $this->queryString = htmlspecialchars($_GET['username']);
+        if ($_GET['username']) {
+            $this->queryString = htmlspecialchars($_GET['username']);
+        }
         $this->checkUri();
 
         if ($_SERVER['REQUEST_METHOD'] !== strtoupper(HttpMethod::Get->value)) {

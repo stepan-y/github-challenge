@@ -15,24 +15,23 @@ class RepositoryController
         if (!self::checkQuery($request)) {
             return Response::response([
                 'code' => 400,
-                'data' => ['message' => 'The username field is required. Set the username in env']
+                'data' => 'The username field is required.'
             ]);
         }
 
-        $username = $request ?: $_ENV['GITHUB_USERNAME'];
         $requestData = [
-            'url' => $_ENV['USERS_URL'] . $username . DIRECTORY_SEPARATOR . 'repos'
+            'url' => $_ENV['USERS_URL'] . $request . DIRECTORY_SEPARATOR . 'repos'
         ];
         $response = Request::send_request(HttpMethod::Get->value, $requestData);
 
         if ($response && $response['code'] === 404) {
             return Response::response([
                 'code' => 404,
-                'data' => ['message' => 'Repositories were not found for this user']
+                'data' => 'Repositories were not found for this user'
             ]);
         }
 
-        $formatted_response = ['username' => $username, 'repositories' => []];
+        $formatted_response = ['username' => $request, 'repositories' => []];
         if ($response && property_exists((object)$response, "data")) {
             $repos = $response['data'];
             $formatted_response['repositories'] = array_map(function ($repo) {

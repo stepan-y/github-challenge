@@ -1,0 +1,10 @@
+openapi: 3.0.3
+info:
+  title: GitHub Repos
+  description: Specs for REST endpoint providing list of users repositories
+  version: "0.1"
+servers:
+  - url: http://localhost:8080
+paths:
+  /user/repos:
+    $ref: "/paths/github-repos.yaml#/github-repos"

@@ -1,0 +1,34 @@
+github-repos:
+  get:
+    description: List repositories for a user
+    parameters:
+      - name: username
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: UserName
+    responses:
+      200:
+        description: Lists public repositories for the specified user
+        content:
+          application/json;charset=utf-8;:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: 'johndoe'
+                repositories:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      full_name:
+                        type: string
+                        example: 'johndoe/myrepo'
+                      url:
+                        type: string
+                        example: 'https://github.com/johndoe/myrepo'

@@ -10,13 +10,13 @@ use App\Commands\Commands;
 $params = getopt('', ["action:","name:"]);
 
 if (!$params) {
-    die('Parameters are required');
+    die("Parameters are required \n");
 }
 if (empty($params['action'])) {
-    die('You have to pass an action, like --action=someAction');
+    die("You have to pass an action, like --action=someAction \n");
 }
 if (empty($params['name'])) {
-    die('You have to pass a name for the repo, like --name=someName');
+    die("You have to pass a name for the repo, like --name=someName \n");
 }
 
 $action = $params['action'];
@@ -25,5 +25,5 @@ $name = $params['name'];
 try {
     $response = Commands::$action($name);
 } catch (Exception $exception) {
-    die("Something went wrong..");
+    die("Something went wrong.. \n");
 }
