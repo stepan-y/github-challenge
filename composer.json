@@ -17,7 +17,6 @@
       "App\\Requests\\": "app/requests",
       "App\\Responses\\": "app/responses",
       "App\\Enums\\": "app/enums",
-      "App\\Http\\": "app/http",
       "App\\Routers\\": "app/routers",
       "App\\Controllers\\": "app/controllers"
     }

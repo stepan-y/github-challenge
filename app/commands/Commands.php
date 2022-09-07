@@ -6,6 +6,7 @@ namespace App\Commands;
 
 use App\Requests\Request;
 use App\Responses\Response;
+use App\Enums\HttpMethod;
 
 final class Commands
 {
@@ -14,7 +15,7 @@ final class Commands
         $data = [
             'url' => $_ENV['USERS_URL'] . "$username/repos"
         ];
-        $response = Request::send_request('get', $data);
+        $response = Request::send_request(HttpMethod::Get->value, $data);
         $response['result'] = json_encode($response['result']);
         return Response::response($response);
     }
@@ -25,7 +26,7 @@ final class Commands
             'data' => [ 'name' => $name ],
             'url' => $_ENV['CREATE_URL']
         ];
-        $response = Request::send_request('post', $data);
+        $response = Request::send_request(HttpMethod::Post->value, $data);
         return Response::response($response);
     }
 
@@ -34,7 +35,7 @@ final class Commands
         $data = [
             'url' => $_ENV['DELETE_URL'] . $_ENV['GITHUB_USERNAME'] . "/$name"
         ];
-        $response = Request::send_request('delete', $data);
+        $response = Request::send_request(HttpMethod::Delete->value, $data);
         return Response::response($response);
     }
 
