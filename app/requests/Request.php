@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Requests;
 
 use App\Responses\Response;
+use Error;
 
 final class Request
 {
@@ -26,14 +27,23 @@ final class Request
     {
         $curl = self::make_curl($data['url']);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
-
-        return self::execute($curl);
+        
+        try {
+            return self::execute($curl);
+        } catch (Error $error) {
+            die($error);
+        }
     }
 
     private static function get(array $data = []): array
     {
         $curl = self::make_curl($data['url']);
-        return self::execute($curl);
+        
+        try {
+            return self::execute($curl);
+        } catch (Error $error) {
+            die($error);
+        }
     }
 
     private static function make_curl(string $uri): \CurlHandle|bool
@@ -55,10 +65,8 @@ final class Request
         $response = curl_exec($curl);
         $responseCode = curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
 
-        if (curl_error($curl)){
-            echo("CURL error!\n");
-            echo(curl_error($curl));
-            die("\nExit");
+        if (curl_error($curl)) {
+            throw new Error(curl_error($curl));
         }
 
         return ['code' => $responseCode, 'data' => json_decode($response, true)];
